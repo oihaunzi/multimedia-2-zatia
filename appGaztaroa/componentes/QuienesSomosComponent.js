@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { Card, List } from 'react-native-paper';
-import { ACTIVIDADES } from '../comun/actividades';
+import { connect } from 'react-redux';
+
+import { baseUrl } from '../comun/comun';
+
+const mapStateToProps = (state) => {
+  return {
+    actividades: state.actividades,
+  };
+};
 
 function Historia() {
   return (
@@ -43,7 +51,7 @@ class QuienesSomos extends Component {
         descriptionNumberOfLines={10}
         left={() => (
           <Image
-            source={require('./imagenes/40Años.png')}
+            source={{ uri: baseUrl + item.imagen }}
             style={styles.icono}
           />
         )}
@@ -55,7 +63,7 @@ class QuienesSomos extends Component {
     return (
       <FlatList
         style={styles.container}
-        data={ACTIVIDADES}
+        data={this.props.actividades.actividades}
         renderItem={this.renderActividad}
         keyExtractor={(item) => item.id.toString()}
         ListHeaderComponent={
@@ -109,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuienesSomos;
+export default connect(mapStateToProps)(QuienesSomos);

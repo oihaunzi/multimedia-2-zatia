@@ -1,9 +1,16 @@
 import { Component } from 'react';
 import { ScrollView, View, StyleSheet, ImageBackground, Text } from 'react-native';
 import { Card } from 'react-native-paper';
-import { EXCURSIONES } from '../comun/excursiones';
-import { CABECERAS } from '../comun/cabeceras';
-import { ACTIVIDADES } from '../comun/actividades';
+import { connect } from 'react-redux';
+import { baseUrl } from '../comun/comun';
+
+const mapStateToProps = (state) => {
+  return {
+    excursiones: state.excursiones,
+    cabeceras: state.cabeceras,
+    actividades: state.actividades,
+  };
+};
 
 function RenderItem({ item }) {
   if (!item) {
@@ -13,7 +20,7 @@ function RenderItem({ item }) {
   return (
     <Card style={styles.card}>
       <ImageBackground
-        source={require('./imagenes/40Años.png')}
+        source={{ uri: baseUrl + item.imagen }}
         style={styles.imageBackground}
         imageStyle={styles.image}
       >
@@ -32,21 +39,24 @@ function RenderItem({ item }) {
 }
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      excursiones: EXCURSIONES,
-      cabeceras: CABECERAS,
-      actividades: ACTIVIDADES,
-    };
-  }
-
   render() {
+    const cabeceraDestacada = this.props.cabeceras.cabeceras.filter(
+      (item) => item.destacado
+    )[0];
+
+    const excursionDestacada = this.props.excursiones.excursiones.filter(
+      (item) => item.destacado
+    )[0];
+
+    const actividadDestacada = this.props.actividades.actividades.filter(
+      (item) => item.destacado
+    )[0];
+
     return (
       <ScrollView>
-        <RenderItem item={this.state.cabeceras.filter((item) => item.destacado)[0]} />
-        <RenderItem item={this.state.excursiones.filter((item) => item.destacado)[0]} />
-        <RenderItem item={this.state.actividades.filter((item) => item.destacado)[0]} />
+        <RenderItem item={cabeceraDestacada} />
+        <RenderItem item={excursionDestacada} />
+        <RenderItem item={actividadDestacada} />
       </ScrollView>
     );
   }
@@ -81,4 +91,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default connect(mapStateToProps)(Home);

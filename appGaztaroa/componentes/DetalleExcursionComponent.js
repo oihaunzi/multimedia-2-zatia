@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Card, Text } from 'react-native-paper';
+import { View, StyleSheet, ImageBackground, Text } from 'react-native';
+import { Card } from 'react-native-paper';
 import { EXCURSIONES } from '../comun/excursiones';
 
 function RenderExcursion(props) {
@@ -9,15 +9,16 @@ function RenderExcursion(props) {
   if (excursion != null) {
     return (
       <Card style={styles.card}>
-        <Card.Title
-          title={excursion.nombre}
-          titleStyle={styles.titulo}
-          style={styles.cardTitle}
-        />
-        <Card.Cover
+        <ImageBackground
           source={require('./imagenes/40Años.png')}
-          style={styles.image}
-        />
+          style={styles.imageBackground}
+          imageStyle={styles.image}
+        >
+          <Text style={styles.tituloImagen}>
+            {excursion.nombre}
+          </Text>
+        </ImageBackground>
+
         <Card.Content>
           <Text style={styles.descripcion}>
             {excursion.descripcion}
@@ -49,18 +50,28 @@ const styles = StyleSheet.create({
   card: {
     margin: 8,
   },
-  image: {
-    marginHorizontal: 0,
+
+  imageBackground: {
+    height: 180,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+
+  image: {
+    resizeMode: 'cover',
+  },
+
+  tituloImagen: {
+    color: 'chocolate',
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingHorizontal: 10,
+  },
+
   descripcion: {
     marginTop: 20,
     marginBottom: 20,
-  },
-  titulo: {
-    textAlign: 'center',
-  },
-  cardTitle: {
-    alignItems: 'center',
   },
 });
 

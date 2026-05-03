@@ -5,9 +5,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+
 import Calendario from './CalendarioComponent';
 import DetalleExcursion from './DetalleExcursionComponent';
 import Home from './HomeComponent';
+import QuienesSomos from './QuienesSomosComponent';
+import Contacto from './ContactoComponent';
 
 import { EXCURSIONES } from '../comun/excursiones';
 
@@ -117,10 +120,20 @@ class Campobase extends Component {
         />
 
         <Drawer.Screen
+          name="Quiénes somos"
+          component={QuienesSomos}
+        />
+
+        <Drawer.Screen
           name="Calendario"
           component={this.CalendarioNavegador}
         />
-      </Drawer.Navigator>
+        
+        <Drawer.Screen
+          name="Contacto"
+          component={Contacto}
+      />
+    </Drawer.Navigator>
     );
   };
 

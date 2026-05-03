@@ -23,6 +23,7 @@ import DetalleExcursion from './DetalleExcursionComponent';
 import Home from './HomeComponent';
 import QuienesSomos from './QuienesSomosComponent';
 import Contacto from './ContactoComponent';
+import { colorGaztaroaOscuro, colorGaztaroaClaro } from '../comun/comun';
 
 import { EXCURSIONES } from '../comun/excursiones';
 
@@ -70,7 +71,7 @@ class Campobase extends Component {
         initialRouteName="Home"
         screenOptions={({ navigation }) => ({
           headerTintColor: '#fff',
-          headerStyle: { backgroundColor: '#015afc' },
+          headerStyle: { backgroundColor: colorGaztaroaOscuro },
           headerTitleStyle: { color: '#fff' },
           headerLeft: () => (
             <Button
@@ -98,7 +99,7 @@ class Campobase extends Component {
         initialRouteName="Calendario"
         screenOptions={({ navigation }) => ({
           headerTintColor: '#fff',
-          headerStyle: { backgroundColor: '#015afc' },
+          headerStyle: { backgroundColor: colorGaztaroaOscuro },
           headerTitleStyle: { color: '#fff' },
           headerLeft: () => (
             <Button
@@ -147,7 +148,7 @@ class Campobase extends Component {
         initialRouteName="QuienesSomos"
         screenOptions={({ navigation }) => ({
           headerTintColor: '#fff',
-          headerStyle: { backgroundColor: '#015afc' },
+          headerStyle: { backgroundColor: colorGaztaroaOscuro },
           headerTitleStyle: { color: '#fff' },
           headerLeft: () => (
             <Button
@@ -175,7 +176,7 @@ class Campobase extends Component {
         initialRouteName="Contacto"
         screenOptions={({ navigation }) => ({
           headerTintColor: '#fff',
-          headerStyle: { backgroundColor: '#015afc' },
+          headerStyle: { backgroundColor: colorGaztaroaOscuro },
           headerTitleStyle: { color: '#fff' },
           headerLeft: () => (
             <Button
@@ -205,7 +206,7 @@ class Campobase extends Component {
         screenOptions={{
           headerShown: false,
           drawerStyle: {
-            backgroundColor: '#c2d3da',
+            backgroundColor: colorGaztaroaClaro,
           },
         }}
       >
@@ -290,7 +291,7 @@ const styles = StyleSheet.create({
   },
 
   drawerHeader: {
-    backgroundColor: '#015afc',
+    backgroundColor: colorGaztaroaOscuro,
     height: 100,
     flexDirection: 'row',
     alignItems: 'center',

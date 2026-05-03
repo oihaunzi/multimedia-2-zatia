@@ -10,6 +10,7 @@ import { Card, Divider, IconButton } from 'react-native-paper';
 
 import { EXCURSIONES } from '../comun/excursiones';
 import { COMENTARIOS } from '../comun/comentarios';
+import { baseUrl } from '../comun/comun';
 
 function RenderExcursion(props) {
   const excursion = props.excursion;
@@ -18,7 +19,7 @@ function RenderExcursion(props) {
     return (
       <Card style={styles.card}>
         <ImageBackground
-          source={require('./imagenes/40Años.png')}
+          source={{ uri: baseUrl + excursion.imagen }}
           style={styles.imageBackground}
           imageStyle={styles.image}
         >
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
   },
 
   tituloImagen: {
-    color: 'chocolate',
+    color: 'white',
     fontSize: 26,
     fontWeight: 'bold',
     textAlign: 'center',

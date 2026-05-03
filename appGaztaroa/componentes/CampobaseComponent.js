@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-
 import Calendario from './CalendarioComponent';
 import DetalleExcursion from './DetalleExcursionComponent';
 import Home from './HomeComponent';
@@ -103,6 +102,62 @@ class Campobase extends Component {
     );
   };
 
+  QuienesSomosNavegador = () => {
+    return (
+      <Stack.Navigator
+        initialRouteName="QuienesSomos"
+        screenOptions={({ navigation }) => ({
+          headerTintColor: '#fff',
+          headerStyle: { backgroundColor: '#015afc' },
+          headerTitleStyle: { color: '#fff' },
+          headerLeft: () => (
+            <Button
+              title="☰"
+              color="#fff"
+              onPress={() => navigation.getParent()?.openDrawer()}
+            />
+          ),
+        })}
+      >
+        <Stack.Screen
+          name="QuienesSomos"
+          component={QuienesSomos}
+          options={{
+            title: 'Quiénes somos',
+          }}
+        />
+      </Stack.Navigator>
+    );
+  };
+
+  ContactoNavegador = () => {
+    return (
+      <Stack.Navigator
+        initialRouteName="Contacto"
+        screenOptions={({ navigation }) => ({
+          headerTintColor: '#fff',
+          headerStyle: { backgroundColor: '#015afc' },
+          headerTitleStyle: { color: '#fff' },
+          headerLeft: () => (
+            <Button
+              title="☰"
+              color="#fff"
+              onPress={() => navigation.getParent()?.openDrawer()}
+            />
+          ),
+        })}
+      >
+        <Stack.Screen
+          name="Contacto"
+          component={Contacto}
+          options={{
+            title: 'Contacto',
+          }}
+        />
+      </Stack.Navigator>
+    );
+  };
+
   DrawerNavegador = () => {
     return (
       <Drawer.Navigator
@@ -121,19 +176,19 @@ class Campobase extends Component {
 
         <Drawer.Screen
           name="Quiénes somos"
-          component={QuienesSomos}
+          component={this.QuienesSomosNavegador}
         />
 
         <Drawer.Screen
           name="Calendario"
           component={this.CalendarioNavegador}
         />
-        
+
         <Drawer.Screen
           name="Contacto"
-          component={Contacto}
-      />
-    </Drawer.Navigator>
+          component={this.ContactoNavegador}
+        />
+      </Drawer.Navigator>
     );
   };
 

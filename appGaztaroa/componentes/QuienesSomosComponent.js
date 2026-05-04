@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { Card, List } from 'react-native-paper';
 import { connect } from 'react-redux';
 
 import { baseUrl } from '../comun/comun';
+import { IndicadorActividad } from './IndicadorActividadComponent';
 
 const mapStateToProps = (state) => {
   return {
@@ -43,7 +44,7 @@ function Historia() {
 }
 
 class QuienesSomos extends Component {
-  renderActividad = ({ item }) => {
+  renderActividadItem = ({ item }) => {
     return (
       <List.Item
         title={item.nombre}
@@ -61,25 +62,31 @@ class QuienesSomos extends Component {
 
   render() {
     return (
-      <FlatList
-        style={styles.container}
-        data={this.props.actividades.actividades}
-        renderItem={this.renderActividad}
-        keyExtractor={(item) => item.id.toString()}
-        ListHeaderComponent={
-          <View>
-            <Historia />
+      <ScrollView style={styles.container}>
+        <Historia />
 
-            <Card style={styles.card}>
-              <Card.Title
-                title='"Actividades y recursos"'
-                titleStyle={styles.titulo}
-                style={styles.cardTitle}
-              />
-            </Card>
-          </View>
-        }
-      />
+        <Card style={styles.card}>
+          <Card.Title
+            title="Actividades y recursos"
+            titleStyle={styles.titulo}
+            style={styles.cardTitle}
+          />
+
+          <Card.Content>
+            {this.props.actividades.isLoading ? (
+              <IndicadorActividad />
+            ) : this.props.actividades.errMess ? (
+              <Text>{this.props.actividades.errMess}</Text>
+            ) : (
+              this.props.actividades.actividades.map((item) => (
+                <View key={item.id}>
+                  {this.renderActividadItem({ item })}
+                </View>
+              ))
+            )}
+          </Card.Content>
+        </Card>
+      </ScrollView>
     );
   }
 }

@@ -3,6 +3,7 @@ import { ScrollView, View, StyleSheet, ImageBackground, Text } from 'react-nativ
 import { Card } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { baseUrl } from '../comun/comun';
+import { IndicadorActividad } from './IndicadorActividadComponent';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,30 +13,46 @@ const mapStateToProps = (state) => {
   };
 };
 
-function RenderItem({ item }) {
-  if (!item) {
-    return <View />;
+function RenderItem(props) {
+  const item = props.item;
+
+  if (props.isLoading) {
+    return (
+      <IndicadorActividad />
+    );
+  } else if (props.errMess) {
+    return (
+      <View style={styles.errorView}>
+        <Text>{props.errMess}</Text>
+      </View>
+    );
+  } else {
+    if (item != null) {
+      return (
+        <Card style={styles.card}>
+          <ImageBackground
+            source={{ uri: baseUrl + item.imagen }}
+            style={styles.imageBackground}
+            imageStyle={styles.image}
+          >
+            <Text style={styles.tituloImagen}>
+              {item.nombre}
+            </Text>
+          </ImageBackground>
+
+          <Card.Content>
+            <Text style={styles.descripcion}>
+              {item.descripcion}
+            </Text>
+          </Card.Content>
+        </Card>
+      );
+    } else {
+      return (
+        <View />
+      );
+    }
   }
-
-  return (
-    <Card style={styles.card}>
-      <ImageBackground
-        source={{ uri: baseUrl + item.imagen }}
-        style={styles.imageBackground}
-        imageStyle={styles.image}
-      >
-        <Text style={styles.tituloImagen}>
-          {item.nombre}
-        </Text>
-      </ImageBackground>
-
-      <Card.Content>
-        <Text style={styles.descripcion}>
-          {item.descripcion}
-        </Text>
-      </Card.Content>
-    </Card>
-  );
 }
 
 class Home extends Component {
@@ -54,9 +71,23 @@ class Home extends Component {
 
     return (
       <ScrollView>
-        <RenderItem item={cabeceraDestacada} />
-        <RenderItem item={excursionDestacada} />
-        <RenderItem item={actividadDestacada} />
+        <RenderItem
+          item={cabeceraDestacada}
+          isLoading={this.props.cabeceras.isLoading}
+          errMess={this.props.cabeceras.errMess}
+        />
+
+        <RenderItem
+          item={excursionDestacada}
+          isLoading={this.props.excursiones.isLoading}
+          errMess={this.props.excursiones.errMess}
+        />
+
+        <RenderItem
+          item={actividadDestacada}
+          isLoading={this.props.actividades.isLoading}
+          errMess={this.props.actividades.errMess}
+        />
       </ScrollView>
     );
   }
@@ -88,6 +119,11 @@ const styles = StyleSheet.create({
   descripcion: {
     marginTop: 20,
     marginBottom: 20,
+  },
+
+  errorView: {
+    margin: 8,
+    padding: 10,
   },
 });
 
